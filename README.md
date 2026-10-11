@@ -138,15 +138,16 @@ The transformation is applied at the class level and does not imply that separat
 
 ## 8. Complexity analysis
 
-After downloading the checkpoint into `pretrained/`, run the following commands. The fixed protocol is batch size 1, FP32, and a `256 x 256` optical/SAR pair:
+After downloading the checkpoint into `pretrained/`, run the following commands. The fixed protocol is batch size 1, FP32, and a `256 × 256` optical/SAR pair:
 
 ```bash
-python complexity/count_parameters.py --config configs/whu.yaml --checkpoint pretrained/LCCMamba_WHU.pth
+python complexity/count_parameters.py \
+    --config configs/whu.yaml \
+    --checkpoint pretrained/LCCMamba_WHU.pth
 
-python complexity/calculate_flops.py --config configs/whu.yaml --checkpoint pretrained/LCCMamba_WHU.pth
-```
-
-The FLOP script uses THOP and reports `1 MAC = 2 FLOPs`. Operator coverage is therefore tied to the installed THOP/custom-operator environment and should be stated when comparing with numbers produced by a different counter.
+python complexity/calculate_flops.py \
+    --config configs/whu.yaml \
+    --checkpoint pretrained/LCCMamba_WHU.pth
 
 ## 9. Available checkpoints
 
