@@ -96,6 +96,7 @@ python inference/predict.py \
     --config configs/whu.yaml \
     --checkpoint pretrained/LCCMamba_WHU.pth
 
+
 ## 7. Evaluation
 
 Ground-truth and prediction masks must be single-channel PNG files with identical names and class-index values. Ground-truth labels are not included in this repository. Set `LABEL_DIR` to your existing ground-truth directory in your shell (on PowerShell, `$LABEL_DIR` is a PowerShell variable), and generate predictions before running:
