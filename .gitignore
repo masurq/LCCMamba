@@ -1,0 +1,14 @@
+# Python bytecode and caches
+__pycache__/
+*.pyc
+.cache/
+
+# Model weights and logs
+*.pth
+*.log
+
+# Generated prediction outputs and caches
+/examples/predictions/*
+!/examples/predictions/.gitkeep
+/predictions/
+/prediction_cache/

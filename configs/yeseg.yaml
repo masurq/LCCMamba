@@ -1,0 +1,46 @@
+dataset:
+  name: YESeg-OPT-SAR
+  num_classes: 8
+  class_names: [background, bare_soil, low_vegetation, tree, building, water, road, other]
+  metric_classes: [1, 2, 3, 4, 5, 6]
+  optical_mean: [0.3872085912116582, 0.3806081906988415, 0.3724778594424105]
+  optical_std: [0.1484095211149247, 0.1429877033049627, 0.1406385706173410]
+  sar_mean: [0.1597667336463928]
+  sar_std: [0.1329848468303680]
+
+model:
+  backbone: MambaSeg_t
+  depths: [2, 2, 8, 2]
+  dims: [96, 192, 384, 768]
+  input_channels: {optical: 3, sar: 1}
+  decoder: MLPAlignDecoder_mutil
+  decoder_embed_dim: 512
+
+training:
+  batch_size: 16
+  image_size: [256, 256]
+  epochs: 100
+  optimizer: AdamW
+  learning_rate: 0.0002
+  weight_decay: 0.0001
+
+contrastive:
+  temperature: 0.1
+  base_temperature: 0.07
+  loss_weights:
+    overall: 0.05
+    cross_branch: [1.0, 1.0]
+
+sampling:
+  SHAS: {enabled: true, hard_mode: pred, max_views: 100}
+  CHS: {enabled: true, max_views: 50}
+  sampling_budget: 1024
+
+inference:
+  crop_size: [256, 256]
+  scales: [1.0]
+  flip: true
+
+provenance:
+  config: checkpoint/yeg/mamba/proposed/MLPAlignDecoder_mutil_MambaSeg_t/all_train/03-09-18-59-37/config.json
+  checkpoint: checkpoint/yeg/mamba/proposed/MLPAlignDecoder_mutil_MambaSeg_t/all_train/03-09-18-59-37/MLPAlignDecoder_mutil_MambaSeg_t_all_train_Pixel_Acc_best_model.pth

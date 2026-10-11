@@ -1,0 +1,46 @@
+dataset:
+  name: Potsdam
+  num_classes: 6
+  class_names: [clutter, impervious_surface, building, low_vegetation, tree, car]
+  metric_classes: [1, 2, 3, 4, 5]
+  optical_mean: [0.337120880003789, 0.3599685295585867, 0.33337263411954154, 0.3820126308610401]
+  optical_std: [0.13984182520738078, 0.1370489226154767, 0.14262200150444931, 0.13944875042381694]
+  sar_mean: [0.18230883000852513]
+  sar_std: [0.20971399266053195]
+
+model:
+  backbone: MambaSeg_t
+  depths: [2, 2, 8, 2]
+  dims: [96, 192, 384, 768]
+  input_channels: {optical: 4, sar: 1}
+  decoder: MLPAlignDecoder_mutil
+  decoder_embed_dim: 512
+
+training:
+  batch_size: 6
+  image_size: [512, 512]
+  epochs: 50
+  optimizer: AdamW
+  learning_rate: 0.001
+  weight_decay: 0.02
+
+contrastive:
+  temperature: 0.1
+  base_temperature: 0.07
+  loss_weights:
+    overall: 0.05
+    cross_branch: [1.0, 1.0]
+
+sampling:
+  SHAS: {enabled: true, hard_mode: pred, max_views: 100}
+  CHS: {enabled: true, max_views: 50}
+  sampling_budget: 1024
+
+inference:
+  crop_size: [512, 512]
+  scales: [0.75, 1.0, 1.25]
+  flip: true
+
+provenance:
+  config: checkpoint/Postdam/mamba/proposed+NEWCONSTRACT/MLPAlignDecoder_mutil_MambaSeg_t/all_train/03-07-09-50-51/config.json
+  checkpoint: checkpoint/Postdam/mamba/proposed+NEWCONSTRACT/MLPAlignDecoder_mutil_MambaSeg_t/all_train/03-07-09-50-51/MLPAlignDecoder_mutil_MambaSeg_t_all_train_Pixel_Acc_best_model.pth

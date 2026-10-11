@@ -1,0 +1,46 @@
+dataset:
+  name: WHU-OPT-SAR
+  num_classes: 8
+  class_names: [background, farmland, city, village, water, forest, road, other]
+  metric_classes: [1, 2, 3, 4, 5, 6, 7]
+  optical_mean: [0.4171278135567563, 0.38524851176305586, 0.31584864673690705, 0.3920406749409602]
+  optical_std: [0.05900967942210461, 0.06627405308424451, 0.07930850013605899, 0.1211643350940716]
+  sar_mean: [0.21132847661424917]
+  sar_std: [0.18894593775525773]
+
+model:
+  backbone: MambaSeg_t
+  depths: [2, 2, 8, 2]
+  dims: [96, 192, 384, 768]
+  input_channels: {optical: 4, sar: 1}
+  decoder: MLPAlignDecoder_mutil
+  decoder_embed_dim: 512
+
+training:
+  batch_size: 6
+  image_size: [512, 512]
+  epochs: 60
+  optimizer: AdamW
+  learning_rate: 0.0002
+  weight_decay: 0.02
+
+contrastive:
+  temperature: 0.1
+  base_temperature: 0.07
+  loss_weights:
+    overall: 0.05
+    cross_branch: [1.0, 1.0]
+
+sampling:
+  SHAS: {enabled: true, hard_mode: pred, max_views: 100}
+  CHS: {enabled: true, max_views: 50}
+  sampling_budget: 1024
+
+inference:
+  crop_size: [512, 512]
+  scales: [0.75, 1.0, 1.25]
+  flip: true
+
+provenance:
+  config: checkpoint/WHU-OPT-SAR/mamba/MambaSeg_ewmaf2/MLPAlignDecoder_mutil_MambaSeg_t/all_train/02-13-11-46-28/config.json
+  checkpoint: checkpoint/WHU-OPT-SAR/mamba/MambaSeg_ewmaf2/MLPAlignDecoder_mutil_MambaSeg_t/all_train/02-13-11-46-28/MLPAlignDecoder_mutil_MambaSeg_t_all_train_Pixel_Acc_best_model.pth
