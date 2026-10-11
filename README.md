@@ -76,15 +76,25 @@ If the pinned PyTorch build is not compatible with the target machine, install t
 
 ## 6. Inference
 
-Place paired optical and SAR images with the same filename stem in `examples/optical/` and `examples/sar/`. Supported extensions are PNG, JPEG, TIFF, and TIF. The optical and SAR arrays must already be spatially aligned and must have the channel counts specified by the selected YAML file.
+Download the pretrained checkpoint from the GitHub Release assets.
 
-First download the checkpoint as described in Section 9 and place it in `pretrained/`. After adding paired input images, run from the repository root:
+For example, to reproduce the WHU-OPT-SAR experiment, place:
+
+pretrained/LCCMamba_WHU.pth
+
+Paired optical and SAR images with the same filename stem should be placed in:
+
+examples/optical/
+examples/sar/
+
+The input images should be spatially aligned and have the channel numbers specified in the corresponding YAML configuration file.
+
+Example command:
 
 ```bash
-python inference/predict.py --config configs/whu.yaml --checkpoint pretrained/LCCMamba_WHU.pth
-```
-
-Predictions are saved in `examples/predictions/` as single-channel PNG masks containing class indices. Custom folders can be supplied with `--optical-dir`, `--sar-dir`, and `--output-dir`.
+python inference/predict.py \
+    --config configs/whu.yaml \
+    --checkpoint pretrained/LCCMamba_WHU.pth
 
 ## 7. Evaluation
 
