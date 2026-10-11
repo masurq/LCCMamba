@@ -78,9 +78,7 @@ If the pinned PyTorch build is not compatible with the target machine, install t
 
 Download the pretrained checkpoint from the GitHub Release assets. For example, to reproduce the WHU-OPT-SAR experiment, download:`LCCMamba_WHU.pth`
 
-and place it in:
-
-```text
+and place it in:```text
 pretrained/LCCMamba_WHU.pth
 ```
 
