@@ -153,6 +153,3 @@ Each file is a tensor-only PyTorch state dictionary. SHA-256 values, byte sizes,
 
 Dataset images and labels are not redistributed. Users must obtain each dataset from its authorized source and reproduce the split described by the corresponding experiment protocol.
 
-## Release notes and limitations
-
-The CSV files contain previously recorded experimental values; no training, inference, or metric recomputation was performed while assembling this package. The ablation and multi-seed tables come from separate experimental protocols and have differing record coverage; see `results/PROVENANCE.md` for interpretation.
