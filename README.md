@@ -78,14 +78,22 @@ If the pinned PyTorch build is not compatible with the target machine, install t
 
 Download the pretrained checkpoint from the GitHub Release assets.
 
-For example, to reproduce the WHU-OPT-SAR experiment, place:
+For example, to reproduce the WHU-OPT-SAR experiment, download:
 
+`LCCMamba_WHU.pth`
+
+and place it in:
+
+```text
 pretrained/LCCMamba_WHU.pth
+```
 
 Paired optical and SAR images with the same filename stem should be placed in:
 
+```text
 examples/optical/
 examples/sar/
+```
 
 The input images should be spatially aligned and have the channel numbers specified in the corresponding YAML configuration file.
 
@@ -95,17 +103,43 @@ Example command:
 python inference/predict.py \
     --config configs/whu.yaml \
     --checkpoint pretrained/LCCMamba_WHU.pth
+```
+
+Predictions are saved in:
+
+```text
+examples/predictions/
+```
+
+as single-channel PNG masks containing predicted class indices.
+
+Example images are not included because the original datasets are subject to redistribution restrictions.
 
 
 ## 7. Evaluation
 
-Ground-truth and prediction masks must be single-channel PNG files with identical names and class-index values. Ground-truth labels are not included in this repository. Set `LABEL_DIR` to your existing ground-truth directory in your shell (on PowerShell, `$LABEL_DIR` is a PowerShell variable), and generate predictions before running:
+Ground-truth and prediction masks must be single-channel PNG files with identical names and class-index values.
+
+Ground-truth labels are not included in this repository because the original datasets are subject to redistribution restrictions. Users should obtain the corresponding datasets from their authorized sources and prepare the labels according to the original dataset protocols.
+
+After generating predictions, run:
 
 ```bash
-python evaluation/evaluate.py --config configs/whu.yaml --predictions examples/predictions --labels "$LABEL_DIR"
+python evaluation/evaluate.py \
+    --config configs/whu.yaml \
+    --predictions examples/predictions \
+    --labels path/to/labels
 ```
 
-The evaluator reports OA, mIoU, mF1, Kappa, per-class IoU/F1, and the confusion matrix. For every class, the implementation verifies `IoU = F1 / (2 - F1)`. Because macro averaging is nonlinear, the transform is an identity for each class and not generally between the separately averaged mIoU and mF1.
+The evaluator reports OA, mIoU, mF1, Kappa, per-class IoU/F1, and the confusion matrix.
+
+For every class, the implementation verifies:
+
+\[
+IoU = \frac{F1}{2-F1}
+\]
+
+The transformation is applied at the class level and does not imply that separately averaged mIoU and mF1 satisfy the same relationship.
 
 ## 8. Complexity analysis
 
