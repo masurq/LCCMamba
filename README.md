@@ -36,11 +36,6 @@ LCCMamba_release/
 ├── complexity/
 │   ├── count_parameters.py
 │   └── calculate_flops.py
-├── results/
-│   ├── main_results.csv
-│   ├── ablation_results.csv
-│   ├── multiseed_results.csv
-│   └── PROVENANCE.md
 └── examples/
     ├── optical/
     ├── sar/
