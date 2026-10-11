@@ -138,7 +138,9 @@ The transformation is applied at the class level and does not imply that separat
 
 ## 8. Complexity analysis
 
-After downloading the checkpoint into `pretrained/`, run the following commands. The fixed protocol is batch size 1, FP32, and a `256 × 256` optical/SAR pair:
+After downloading the checkpoint from the GitHub Release assets, place it in the `pretrained/` directory. The fixed protocol is batch size 1, FP32, and a `256 × 256` optical/SAR image pair.
+
+Example commands:
 
 ```bash
 python complexity/count_parameters.py \
@@ -148,36 +150,50 @@ python complexity/count_parameters.py \
 python complexity/calculate_flops.py \
     --config configs/whu.yaml \
     --checkpoint pretrained/LCCMamba_WHU.pth
+```
+
+The complexity analysis follows the same evaluation protocol used in the manuscript. The FLOP calculation includes the required handling of Mamba selective scan modules. FLOPs are reported using the convention that `1 MAC = 2 FLOPs`.
+
 
 ## 9. Available checkpoints
 
-The pretrained checkpoints are distributed separately through GitHub Releases due to GitHub file size limitations.
+Due to GitHub file size limitations, pretrained checkpoints are distributed separately through the GitHub Release assets.
 
-The repository initially contains only `pretrained/checkpoint_info.txt` in the `pretrained/` directory.
+The repository initially contains only checkpoint metadata:
 
-Checkpoint download:
+```text
+pretrained/
+└── checkpoint_info.txt
+```
 
-Download the following assets from this repository's GitHub Releases page after the release assets have been published:
+The following files can be downloaded from the GitHub Releases page:
 
-- LCCMamba_WHU.pth
-- LCCMamba_Potsdam.pth
-- LCCMamba_YESeg.pth
+- `LCCMamba_WHU.pth`
+- `LCCMamba_Potsdam.pth`
+- `LCCMamba_YESeg.pth`
+- `vssm1_tiny_0230s_ckpt_epoch_264.pth`
 
-Place the downloaded files in `pretrained/`. The directory after downloading should be:
+After downloading, place the required checkpoints in the `pretrained/` directory:
 
 ```text
 pretrained/
 ├── LCCMamba_WHU.pth
 ├── LCCMamba_Potsdam.pth
 ├── LCCMamba_YESeg.pth
+├── vssm1_tiny_0230s_ckpt_epoch_264.pth
 └── checkpoint_info.txt
 ```
 
-| Dataset | File | Input channels | Classes | Selection |
+The released checkpoints are described below:
+
+| Dataset / Purpose | File | Input channels | Classes | Description |
 |---|---|---:|---:|---|
-| WHU-OPT-SAR | `pretrained/LCCMamba_WHU.pth` | optical 4, SAR 1 | 8 | best training Pixel Acc checkpoint used by the preserved test log |
-| Potsdam | `pretrained/LCCMamba_Potsdam.pth` | optical 4, SAR 1 | 6 | best training Pixel Acc checkpoint used by the preserved test log |
-| YESeg-OPT-SAR | `pretrained/LCCMamba_YESeg.pth` | optical 3, SAR 1 | 8 | best training Pixel Acc checkpoint used by the preserved test log |
+| WHU-OPT-SAR | `LCCMamba_WHU.pth` | Optical 4, SAR 1 | 8 | Fine-tuned LCCMamba checkpoint for WHU-OPT-SAR experiments |
+| Potsdam | `LCCMamba_Potsdam.pth` | Optical 4, SAR 1 | 6 | Fine-tuned LCCMamba checkpoint for Potsdam experiments |
+| YESeg-OPT-SAR | `LCCMamba_YESeg.pth` | Optical 3, SAR 1 | 8 | Fine-tuned LCCMamba checkpoint for YESeg-OPT-SAR experiments |
+| Backbone initialization | `vssm1_tiny_0230s_ckpt_epoch_264.pth` | - | - | Pretrained VMamba-Tiny backbone checkpoint used for model initialization |
+
+The LCCMamba checkpoints contain the complete model parameters required for inference. The VMamba-Tiny checkpoint is provided as the pretrained backbone initialization weight.
 
 ## 10. Dataset description
 
