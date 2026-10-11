@@ -148,8 +148,6 @@ pretrained/
 | Potsdam | `pretrained/LCCMamba_Potsdam.pth` | optical 4, SAR 1 | 6 | best training Pixel Acc checkpoint used by the preserved test log |
 | YESeg-OPT-SAR | `pretrained/LCCMamba_YESeg.pth` | optical 3, SAR 1 | 8 | best training Pixel Acc checkpoint used by the preserved test log |
 
-Each file is a tensor-only PyTorch state dictionary. SHA-256 values, byte sizes, and source-run provenance are recorded in `pretrained/checkpoint_info.txt`.
-
 ## 10. Dataset description
 
 - **WHU-OPT-SAR**: paired four-channel optical and one-channel SAR imagery. The released configuration has eight label indices; the background class is included in OA and omitted from macro IoU/F1, matching the preserved evaluation protocol.
