@@ -1,20 +1,20 @@
-Dataset: WHU-OPT-SAR
-Original checkpoint: checkpoint/WHU-OPT-SAR/mamba/MambaSeg_ewmaf2/MLPAlignDecoder_mutil_MambaSeg_t/all_train/02-13-11-46-28/MLPAlignDecoder_mutil_MambaSeg_t_all_train_Pixel_Acc_best_model.pth
-New filename: LCCMamba_WHU.pth
-File size: 286561437 bytes
-Parameter format: PyTorch OrderedDict[str, Tensor], 785 tensors, FP32; model state only
-SHA-256: 5338f1dec36345b6079ba449d523c3476dc5445fe40067cf4a7a7839f01ebf05
+Due to GitHub file size limitations, pretrained checkpoints are provided through the GitHub Release assets.
 
-Dataset: Potsdam
-Original checkpoint: checkpoint/Postdam/mamba/proposed+NEWCONSTRACT/MLPAlignDecoder_mutil_MambaSeg_t/all_train/03-07-09-50-51/MLPAlignDecoder_mutil_MambaSeg_t_all_train_Pixel_Acc_best_model.pth
-New filename: LCCMamba_Potsdam.pth
-File size: 286540957 bytes
-Parameter format: PyTorch OrderedDict[str, Tensor], 785 tensors, FP32; model state only
-SHA-256: 67dccafb18af26be725904e7ed213b7d65a44803d5a279ed28d1577a23ae85ce
+The release contains the following pretrained weights:
 
-Dataset: YESeg-OPT-SAR
-Original checkpoint: checkpoint/yeg/mamba/proposed/MLPAlignDecoder_mutil_MambaSeg_t/all_train/03-09-18-59-37/MLPAlignDecoder_mutil_MambaSeg_t_all_train_Pixel_Acc_best_model.pth
-New filename: LCCMamba_YESeg.pth
-File size: 286559709 bytes
-Parameter format: PyTorch OrderedDict[str, Tensor], 785 tensors, FP32; model state only
-SHA-256: cf3f86665e565de494772d345ffe57c15776ce87121864deeb8a53e9ca25fe3c
+1. LCCMamba_WHU.pth
+   Dataset: WHU-OPT-SAR
+   Description: Fine-tuned LCCMamba model checkpoint for WHU-OPT-SAR experiments.
+
+2. LCCMamba_Potsdam.pth
+   Dataset: Potsdam
+   Description: Fine-tuned LCCMamba model checkpoint for Potsdam experiments.
+
+3. LCCMamba_YESeg.pth
+   Dataset: YESeg-OPT-SAR
+   Description: Fine-tuned LCCMamba model checkpoint for YESeg-OPT-SAR experiments.
+
+4. vssm1_tiny_0230s_ckpt_epoch_264.pth
+   Description: Pretrained VMamba-Tiny backbone checkpoint used for model initialization.
+
+All checkpoints are provided as PyTorch model state dictionaries and can be loaded for inference.
